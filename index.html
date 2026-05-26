@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            padding: 0;
+            margin: 0;
+        }
+
+        h2,
+        h3 {
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        kbd {
+            user-select: all;
+        }
+
+        section {
+            color: white;
+            background-color: if(style(--background-image: unset): yellowgreen; else: unset);
+            --background-image: unset;
+            background-image: var(--background-image);
+            background-size: cover;
+            background-position: 50%;
+            width: 100vw;
+            height: 100vh;
+            /* position: relative; */
+            position: absolute;
+            top: 0;
+
+            .center {
+                position: absolute;
+                top: 25%;
+                left: 20%;
+                right: 20%;
+                bottom: 0;
+                overflow: hidden scroll;
+
+                &.top-50 {
+                    top: 50%;
+                }
+                &.inline-15 {
+                    left: 15%;
+                    right: 15%;
+                }
+            }
+
+            .left {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .right {
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
+
+        a[title] {
+            display: block;
+            --width: 100px;
+
+            &::before {
+                content: '';
+                display: block;
+                background-position: 50%;
+                background-size: 200%;
+                width: var(--width);
+                aspect-ratio: 1;
+            }
+        }
+
+        a.button {
+            text-align: center;
+            text-decoration: none;
+            color: currentColor;
+            background-color: oklch(from currentColor calc(1 - l) c h);
+            border: 0.15em solid currentColor;
+            border-radius: 0.5em;
+            padding: 0.5em 1em;
+        }
+
+        section[id=""] {
+            --background-image: url(./images/Home_Background.png);
+        }
+
+        section[id="start"] {
+            --background-image: url(./images/Levels_Background.png);
+        }
+
+        section[id="info"] {
+            --background-image: url(./images/Info_Background.png);
+        }
+
+        section[id="settings"] {
+            --background-image: url(./images/Settings_Background.png);
+            & .center {
+                padding-inline: 10%;
+            }
+        }
+
+        section[id="lessons"] {
+            --background-image: url(./images/Lessons_Background.png);
+        }
+
+        section[id="lessons-8"], section[id="level-1"] {
+            --background-image: url(./images/levels/1/intro.png);
+        }
+
+        section[id="lessons-9"], section[id="level-2"] {
+            --background-image: url(./images/levels/2/intro.png);
+        }
+
+        section[id="lessons-10"], section[id="level-3"] {
+            --background-image: url(./images/levels/3/intro.png);
+        }
+
+        section[id="notebook"] {
+            --background-image: url(./images/Notebook_Background.png);
+        }
+
+        a[title="Back"], a[title="Lessons"], a[title="Start"], section[id=""] a[title="Notebook"], section:not([id="menu"]) a[title="Menu"] {
+            --padding-multiplier: 0.25;
+            padding-block: calc(var(--width) * var(--padding-multiplier, 1));
+
+            &::before {
+                aspect-ratio: 2;
+                background-size: 125%;
+            }
+        }
+
+        a[title="Lessons"], a[title="Start"], section[id=""] a[title="Notebook"] {
+            --width: 400px;
+            --padding-multiplier: 0.125;
+            &::before {
+                background-size: 100%;
+            }
+        }
+
+        a[title="Back"]::before {
+            background-image: url(./images/Back_Button.png);
+        }
+
+        a[title="Menu"]::before {
+            background-image: url(./images/Burger_Menu.png);
+        }
+
+        a[title="Lessons"]::before {
+            background-image: url(./images/Lessons_Button.png);
+        }
+
+        a[title="Login"]::before {
+            background-image: url(./images/Login_Button.png);
+        }
+
+        section[id="menu"] a[title="Menu"]::before {
+            background-image: url(./images/Menu_Button.png);
+        }
+
+        a[title="Notebook"]::before {
+            background-image: url(./images/Notebook.png);
+        }
+
+        section[id=""] a[title="Notebook"]::before {
+            background-image: url(./images/Notebook_Button.png);
+        }
+
+        a[title="Register"]::before {
+            background-image: url(./images/Register_Button.png);
+        }
+
+        a[title="Reset"]::before {
+            background-image: url(./images/Reset_Button.png);
+        }
+
+        a[title="Settings"]::before {
+            background-image: url(./images/Settings_Button.png);
+        }
+
+        a[title="Start"]::before {
+            background-image: url(./images/Start_Button.png);
+        }
+
+        a[title="Close"]::before {
+            background-image: url(./images/X_Button.png);
+        }
+    </style>
+</head>
+
+<body>
+    <section id="404">
+        <div class="center">
+            <h3>Not Found</h3>
+        </div>
+    </section>
+
+    <section id="">
+        <div class="center top-50 inline-15">
+            <h2>Пазителите на Шанса: Аритмос в Хаос</h2>
+            <div style="display: flex; justify-content: center;">
+                <a href="#lessons" title="Lessons"></a>
+                <a href="#start" title="Start"></a>
+                <a href="#notebook" title="Notebook"></a>
+            </div>
+        </div>
+        <div class="left">
+            <a href="#settings" title="Settings"></a>
+            <a href="#info" title="Login"></a>
+        </div>
+        <div class="right">
+            <a href="#login" title="Login"></a>
+        </div>
+    </section>
+
+    <section id="menu" style="opacity: 1; background: oklch(from black l c h / 0.5); z-index: 1;">
+        <div class="left">
+            <a href="#close" title="Close"></a>
+        </div>
+        <div class="center">
+            <h3>Меню</h3>
+            <div style="width: min-content;">
+                <a href="#" title="Menu"></a>
+                <a href="#settings" title="Settings"></a>
+                <a href="#notebook" title="Notebook"></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="start">
+        <div class="center">
+            <div
+                style="display: grid; grid-template-columns: 1fr 2fr; align-items: center; column-gap: 1.5em; row-gap: 1em;">
+                <a href="#level-1" class="button">ниво 1</a>
+                <p>Кварталът на занаятчиите</p>
+                <a href="#level-2" class="button">ниво 2</a>
+                <p>Площадът на пазарите</p>
+                <a href="#level-3" class="button">ниво 3</a>
+                <p>Кулата на Ентропия</p>
+            </div>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="level-1">
+        <div class="center">
+            <h3>Задачи за ниво 1</h3>
+            <div
+                style="width: min-content; margin-inline: auto; display: grid; grid-template-columns: repeat(4, minmax(0%, 1fr)); align-items: center; column-gap: 1.5em; row-gap: 1em;">
+                <a href="#level-1-1" class="button">1</a>
+                <a href="#level-1-2" class="button">2</a>
+                <a href="#level-1-3" class="button">3</a>
+                <a href="#level-1-4" class="button">4</a>
+                <a href="#level-1-5" class="button">5</a>
+                <a href="#level-1-6" class="button">6</a>
+                <a href="#level-1-7" class="button">7</a>
+                <a href="#level-1-8" class="button">8</a>
+                <a href="#level-1-9" class="button">9</a>
+                <a href="#level-1-10" class="button">10</a>
+                <a href="#level-1-11" class="button">11</a>
+                <a href="#level-1-12" class="button">12</a>
+            </div>
+        </div>
+        <div class="left">
+            <a href="#menu" title="Menu"></a>
+        </div>
+    </section>
+
+    <section id="level-2">
+        <div class="center">
+            <h3>Задачи за ниво 2</h3>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="level-3">
+        <div class="center">
+            <h3>Задачи за ниво 3</h3>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="lessons">
+        <div class="center">
+            <h3>Уроци</h3>
+            <div
+                style="display: grid; grid-template-columns: 1fr 2fr; align-items: center; column-gap: 1.5em; row-gap: 1em;">
+                <a href="#lessons-8" class="button">8 клас</a>
+                <p>.......................................</p>
+                <a href="#lessons-9" class="button">9 клас</a>
+                <p>.......................................</p>
+                <a href="#lessons-10" class="button">10 клас</a>
+                <p>.......................................</p>
+            </div>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="lessons-8">
+        <div class="center">
+            <h3>8 клас</h3>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="lessons-9">
+        <div class="center">
+            <h3>9 клас</h3>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="lessons-10">
+        <div class="center">
+            <h3>10 клас</h3>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="notebook">
+        <div class="center">
+            <h3>Тетрадка</h3>
+            <div style="display: flex; column-gap: 2em;">
+                <a href="#notebook-dictionary" class="button">Справочник</a>
+                <a href="#notebook-notes" class="button">Записки</a>
+            </div>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="notebook-dictionary">
+        <div class="center">
+            <h3>Справочник</h3>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="notebook-notes">
+        <div class="center">
+            <h3>Записки</h3>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="settings">
+        <div class="center">
+            <h3>Настройки</h3>
+            <div>
+                <p>Звук: <input type="range" name="sound" id="soundLevel" min="0" max="100" value="0" title="Sound Level"/> <span data-for="sound" data-template="${this.value}%"></span></p>
+                <p>Тема: ........</p>
+            </div>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <section id="info">
+        <div class="center">
+            <h3>Информация</h3>
+            <div>
+                <details style="max-height: 32lh; overflow-y: scroll;">
+                    <summary>Сюжет</summary>
+                    <p>
+                    Цялостната история: „Пазителите на Шанса: Аритмос в Хаос“
+
+                    Някога градът Аритмос бил върховният символ на съвършен ред — свят, в който всичко се подчинявало на логиката, а случайността нямала власт. Източникът на този баланс бил древният Кристал на Шанса — артефакт с невъобразима сила, който управлявал вероятностите и поддържал хармонията във вселената.
+
+                    Но един ден настъпил хаос.
+
+                    Злият гений Ентропия, въплъщение на безредицата, разбил Кристала на три части и ги скрил в различни части на града. В същия миг Аритмос започнал да се разпада: предмети се появяват и изчезват на случаен принцип, решенията стават невъзможни, а самата реалност започва да се подчинява на хаоса. Дори изгревът на слънцето вече не е сигурен.
+
+                    Ти влизаш в ролята на Арит — млад чирак в Академията по логика, един от малкото, които все още разбират законите на математиката.
+
+                    Твоята мисия е да преминеш през трите разрушени района на Аритмос, да решиш коварните математически изпитания на Ентропия и да възстановиш Кристала на Шанса. Само така редът може да бъде върнат.
+
+                    История по нива (сюжет и задачи)
+
+                    Ниво 1: Кварталът на занаятчиите (8. клас – Комбинаторика)
+
+                    Сюжет: Попадаш в квартал, обхванат от пълна бъркотия. Инструменти се разместват, изчезват и се появяват без ред. Занаятчиите са безпомощни и не могат да създадат нищо.
+
+                    Какво прави Арит: Той възстановява реда чрез комбинаториката — подрежда инструментите (пермутации), създава кодове за заключване (вариации) и формира работни екипи (комбинации).
+
+                    Край на нивото: Арит намира първото парче от Кристала, което му дава способността да подрежда хаоса.
+
+                    Ниво 2: Площадът на пазарите (9. клас – Класическа вероятност)
+
+                    Сюжет: Търговията е в колапс. Никой не знае какво продава, какво ще получи или какъв е шансът да спечели.
+
+                    Какво прави Арит: Той разчита повредени таблици и диаграми, за да разбере наличностите, изчислява шансовете за успех (класическа вероятност) и анализира различни възможни изходи при сложни ситуации.
+
+                    Край на нивото: Арит намира второто парче, което му дава способността да предвижда възможните изходи.
+
+                    Ниво 3: Кулата на Ентропия (11. клас – Вероятности)
+
+                    Сюжет: Арит достига до кулата на Ентропия, където реалността е нестабилна. Капани се активират непредсказуемо, а пространството се изкривява.
+
+                    Какво прави Арит: За да оцелее, той използва условна вероятност, за да предвижда събития, прилага формулата на Бейс, за да открива скрити зависимости, използва схема на Бернули за поредици от опити и решава задачи с геометрична вероятност, за да намира точни позиции в пространството.
+
+                    Край на играта: Арит побеждава Ентропия, сглобява Кристала на Шанса и възстановява реда в Аритмос. Градът отново се превръща в символ на логиката и хармонията.
+                    </p>
+                    <img src="./images/Map_Of_Levels.png" width="100%"/>
+                </details>
+                <h4>Клавишни комбинации</h4>
+                <ul style="list-style: none;padding-left: 1.5em;">
+                    <li><kbd>Ctrl+M</kbd> - контрол на звука (вкл./изкл. звук)</li>
+                </ul>
+                <h4>Как се играе</h4>
+                <p>.......</p>
+            </div>
+        </div>
+        <div class="left">
+            <a href="#back" title="Back"></a>
+        </div>
+    </section>
+
+    <script>
+        const DEFAULT_START_ID = '';
+        const NOT_FOUND_ID = '404';
+        // const FORBIDDEN_ID = '404';
+        const QUERY_PATTERN_MENU = /(?<start>^\?|&)menu=(?<id>[^&]+)(?:$|&)/;
+        const sections = Object.fromEntries(Array.from(document.querySelectorAll('section[id]'))
+            .map(section => [section.id, section]));
+        let currentActiveId = null;
+        let menuOpenedId = location.search.match(QUERY_PATTERN_MENU)?.groups.id ?? null;
+        
+        for (const link of document.querySelectorAll('a[href^="#"]')) {
+            link.addEventListener('click', event => {
+                event.preventDefault();
+                const sectionId = link.getAttribute('href');
+
+                switch (sectionId) {
+                    case '#close':
+                        showHideMenu(null);
+                        break;
+
+                    case '#back':
+                        if (navigation.canGoBack) {
+                            navigation.back();
+                        } else {
+                            location.hash = DEFAULT_START_ID;
+                        }
+                        break;
+
+                    case '#menu':
+                        showHideMenu(currentActiveId);
+                        break;
+
+                    default:
+                        location.href = sectionId;
+                        break;
+                }
+            });
+        }
+
+        for (const input of document.querySelectorAll('input[type="range"][name]')) {
+            input.oninput = () => {
+                for (const span of document.querySelectorAll(`span[data-for="${input.name}"]`)) {
+                    span.innerHTML = span.dataset.template ? makeTemplate(span.dataset.template)(input) : input.value;
+                }
+            };
+            input.oninput();
+        }
+
+        let lastSoundLevelValue = Number(localStorage.getItem('soundLevel') ?? 100);
+        const backgoundMusic = new Audio('./The_Mainspring_Crown.mp3');
+        backgoundMusic.loop = true;
+        backgoundMusic.volume = lastSoundLevelValue / 100;
+        soundLevel.onchange = () => {
+            if (Math.floor(backgoundMusic.volume * 100) !== Number(soundLevel.value)) {
+                localStorage.setItem('lastSoundLevel', Math.floor(backgoundMusic.volume * 100));
+            }
+            localStorage.setItem('soundLevel', soundLevel.value);
+            backgoundMusic.volume = soundLevel.value / 100;
+            backgoundMusic.play();
+        };
+
+        document.onkeydown = function (event) {
+            if (event.ctrlKey && event.code == 'KeyM') {
+                const temp = Number(soundLevel.value);
+                soundLevel.value = temp === 0 ? (lastSoundLevelValue === 0 ? Number(localStorage.getItem('lastSoundLevel') ?? 100) || 100 : lastSoundLevelValue) : 0;
+                soundLevel.oninput();
+                soundLevel.onchange();
+                lastSoundLevelValue = temp;
+            }
+        }
+
+        window.addEventListener('popstate', () => {
+            const sectionId = location.hash.substr(1);
+            menuOpenedId = location.search.match(QUERY_PATTERN_MENU)?.groups.id ?? null;
+            if (menuOpenedId !== null && menuOpenedId !== sectionId) {
+                history.replaceState(history.state, '', `${location.search.replace(QUERY_PATTERN_MENU, '$1')}${location.hash}`);
+                menuOpenedId = null;
+            }
+
+            let section = sections[sectionId];
+            // if (currentActiveId && section && section.dataset.protected && !new RegExp(section.dataset.protected).test(currentActiveId)) {
+            //     const redirect = section.dataset.redirect ?? FORBIDDEN_ID;
+            //     if (currentActiveId !== redirect) {
+            //         location.hash = redirect;
+            //         return;
+            //     }
+            //     section = undefined;
+            // }
+
+            if (!section && sections[NOT_FOUND_ID]) {
+                section = sections[NOT_FOUND_ID];
+            }
+
+            // autoplay music on first interaction
+            if (backgoundMusic.paused) {
+                backgoundMusic.play()
+                    .then(() => {
+                        soundLevel.value = Math.floor(backgoundMusic.volume * 100);
+                        soundLevel.oninput();
+                        soundLevel.onchange();
+                    });
+            }
+
+            Object.values(sections).forEach(section => section.style.display = 'none');
+            if (section) {
+                section.style.display = '';
+                currentActiveId = section.id;
+            } else {
+                currentActiveId = null;
+            }
+
+            showHideMenu(menuOpenedId);
+        });
+
+        if (!location.href.includes('#') && location.hash.substr(1) !== DEFAULT_START_ID) {
+            location.hash = DEFAULT_START_ID;
+        } else {
+            window.dispatchEvent(new Event('popstate'));
+        }
+
+        function showHideMenu(sectionId) {
+            if (menuOpenedId !== sectionId) {
+                history.pushState(history.state, '', `${sectionId
+                    ? (location.search.startsWith('?')
+                        ? `${location.search.replace(QUERY_PATTERN_MENU, '$1')}&menu=${sectionId}`.replace(/^\?&/, '?')
+                        : `?menu=${sectionId}`)
+                    : location.search.replace(QUERY_PATTERN_MENU, '$1')}${location.hash}`);
+                window.dispatchEvent(new Event('popstate'));
+
+                menuOpenedId = sectionId;
+            }
+
+            sections.menu.style.display = sectionId !== null ? '' : 'none';
+            const currentSection = sections[currentActiveId];
+            if (currentSection) {
+                const left = currentSection.querySelector('.left');
+                if (left) {
+                    left.style.display = sectionId !== null ? 'none' : '';
+                }
+            }
+        }
+
+        function makeTemplate(string) {
+            return (obj) => Function(`return \`${string}\`;`).call(obj);
+        }
+    </script>
+</body>
+
+</html>
